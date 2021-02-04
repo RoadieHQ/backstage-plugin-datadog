@@ -14,26 +14,35 @@
  * limitations under the License.
  */
 
+import React from 'react';
 import { Entity } from '@backstage/catalog-model';
 import { InfoCard } from '@backstage/core';
-import React from 'react';
 import { useDatadogAppData } from './useDatadogAppData';
+import { Resizable } from 're-resizable';
+import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
 
-// @ts-ignore
 export const DatadogDashboardPage = ({ entity }: { entity: Entity }) => {
   const { dashboardUrl } = useDatadogAppData({ entity });
   return (
     <InfoCard title="Datadog dashboard">
-      <iframe
-        src={`${dashboardUrl}&tv_mode=true`}
-        style={{
-          border: 'none',
-          minHeight: '500px',
+      <Resizable
+        defaultSize={{
           width: '100%',
-          resize: 'both',
-          overflow: 'auto',
+          height: 500,
         }}
-      ></iframe>
+        handleComponent={{ bottomRight: <ZoomOutMapIcon /> }}
+      >
+        <iframe
+          src={`${dashboardUrl}&tv_mode=true`}
+          style={{
+            border: 'none',
+            height: '100%',
+            width: '100%',
+            resize: 'both',
+            overflow: 'auto',
+          }}
+        ></iframe>
+      </Resizable>
     </InfoCard>
   );
 };

@@ -17,12 +17,22 @@
 import { Entity } from '@backstage/catalog-model';
 
 export const DATADOG_ANNOTATION_DASHBOARD_URL = 'datadog/dashboard-url';
+export const DATADOG_ANNOTATION_GRAPH_TOKEN = 'datadog/graph-token';
+export const DATADOG_ANNOTATION_GRAPH_SIZE = 'datadog/graph-size';
+
+export type GraphSize = 'small' | 'medium' | 'large' | 'x-large';
 
 export const useDatadogAppData = ({ entity }: { entity: Entity }) => {
   const dashboardUrl =
     entity?.metadata.annotations?.[DATADOG_ANNOTATION_DASHBOARD_URL] ?? '';
-  if (!dashboardUrl) {
+  const graphToken =
+    entity?.metadata.annotations?.[DATADOG_ANNOTATION_GRAPH_TOKEN] ?? '';
+  const graphSize: GraphSize =
+    (entity?.metadata.annotations?.[
+      DATADOG_ANNOTATION_GRAPH_SIZE
+    ] as GraphSize) ?? 'medium';
+  if (!dashboardUrl && !graphToken) {
     throw new Error("'datadog' annotation is missing");
   }
-  return { dashboardUrl };
+  return { dashboardUrl, graphToken, graphSize };
 };
