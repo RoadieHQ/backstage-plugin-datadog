@@ -33,6 +33,7 @@ export const DatadogDashboardPage = ({ entity }: { entity: Entity }) => {
         handleComponent={{ bottomRight: <ZoomOutMapIcon /> }}
       >
         <iframe
+          title="dashboard"
           src={`${dashboardUrl}&tv_mode=true`}
           style={{
             border: 'none',
@@ -41,7 +42,7 @@ export const DatadogDashboardPage = ({ entity }: { entity: Entity }) => {
             resize: 'both',
             overflow: 'auto',
           }}
-        ></iframe>
+        />
       </Resizable>
     </InfoCard>
   );

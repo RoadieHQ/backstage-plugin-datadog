@@ -40,16 +40,6 @@ const mapGraphSizeToDimensions = (graphSize: GraphSize) => {
   }
 };
 
-export const GraphWidget = ({ entity }: { entity: Entity }) => {
-  return !isGraphAnnotation(entity) ? (
-    <MissingAnnotationEmptyState annotation={DATADOG_ANNOTATION_GRAPH_TOKEN} />
-  ) : (
-    <ErrorBoundary>
-      <DatadogGraph entity={entity} />
-    </ErrorBoundary>
-  );
-};
-
 const DatadogGraph = ({ entity }: { entity: Entity }) => {
   const { graphToken, graphSize } = useDatadogAppData({ entity });
   const { width, height } = mapGraphSizeToDimensions(graphSize);
@@ -58,12 +48,23 @@ const DatadogGraph = ({ entity }: { entity: Entity }) => {
       <CardHeader title={<Typography variant="h5">Datadog</Typography>} />
       <CardContent>
         <iframe
+          title="graph"
           src={`https://app.datadoghq.eu/graph/embed?token=${graphToken}&height=${height}&width=${width}&legend=true`}
           width={width}
           height={height}
           frameBorder="0"
-        ></iframe>
+        />
       </CardContent>
     </Card>
+  );
+};
+
+export const GraphWidget = ({ entity }: { entity: Entity }) => {
+  return !isGraphAnnotation(entity) ? (
+    <MissingAnnotationEmptyState annotation={DATADOG_ANNOTATION_GRAPH_TOKEN} />
+  ) : (
+    <ErrorBoundary>
+      <DatadogGraph entity={entity} />
+    </ErrorBoundary>
   );
 };

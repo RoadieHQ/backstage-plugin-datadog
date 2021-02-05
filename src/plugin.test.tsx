@@ -14,27 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import {
-  ApiProvider,
-  ApiRegistry,
-  errorApiRef,
-  UrlPatternDiscovery,
-} from '@backstage/core';
-import { render } from '@testing-library/react';
-import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { plugin } from './plugin';
-import { getEntityStub } from './mocks/mocks';
-import { DatadogApiClient, datadogApiRef } from '.';
-
-const discoveryApi = UrlPatternDiscovery.compile('http://exampleapi.com');
-const errorApiMock = { post: jest.fn(), error$: jest.fn() };
-
-const apis = ApiRegistry.from([
-  [errorApiRef, errorApiMock],
-  [datadogApiRef, new DatadogApiClient({ discoveryApi })],
-]);
 
 describe('datadog', () => {
   const worker = setupServer();
