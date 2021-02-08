@@ -13,26 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as React from 'react';
 import { Entity } from '@backstage/catalog-model';
-import { Routes, Route } from 'react-router-dom';
+import { MissingAnnotationEmptyState } from '@backstage/core';
+import React from 'react';
+import { Route, Routes } from 'react-router';
 import { DatadogDashboardPage } from './components/DatadogDashboardPage';
 import {
   DATADOG_ANNOTATION_DASHBOARD_URL,
   DATADOG_ANNOTATION_GRAPH_TOKEN,
 } from './components/useDatadogAppData';
-import { MissingAnnotationEmptyState } from '@backstage/core';
 
-type Props = { entity: Entity };
-
-export const isDashboardAnnotation = (entity: Entity) =>
+export const isDatadogDashboardAvailable = (entity: Entity) =>
   Boolean(entity?.metadata.annotations?.[DATADOG_ANNOTATION_DASHBOARD_URL]);
-export const isGraphAnnotation = (entity: Entity) =>
+export const isDatadogGraphAvailable = (entity: Entity) =>
   Boolean(entity?.metadata.annotations?.[DATADOG_ANNOTATION_GRAPH_TOKEN]);
-export const isPluginApplicableToEntity = (entity: Entity) =>
-  isDashboardAnnotation(entity) || isGraphAnnotation(entity);
-export const Router: React.FC<Props> = ({ entity }) =>
-  !isDashboardAnnotation(entity) ? (
+export const isDatadogAvailable = (entity: Entity) =>
+  isDatadogDashboardAvailable(entity) || isDatadogGraphAvailable(entity);
+
+export const Router = ({ entity }: { entity: Entity }) =>
+  !isDatadogDashboardAvailable(entity) ? (
     <MissingAnnotationEmptyState
       annotation={DATADOG_ANNOTATION_DASHBOARD_URL}
     />
