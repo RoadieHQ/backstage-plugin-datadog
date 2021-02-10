@@ -57,7 +57,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
       element={<DatadogRouter entity={entity} />}
     />
   </EntityPageLayout>
-
+)
 ```
 
 ## How to use datadog plugin in Backstage
