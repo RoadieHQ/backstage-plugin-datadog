@@ -1,3 +1,4 @@
 export { datadogPlugin as plugin } from './plugin';
 export * from './api';
-export { isDatadogGraphAvailable } from './Router';
+export * from './Router';
+export { GraphWidget } from './components/GraphWidget';

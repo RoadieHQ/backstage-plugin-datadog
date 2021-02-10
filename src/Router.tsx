@@ -30,6 +30,9 @@ export const isDatadogGraphAvailable = (entity: Entity) =>
 export const isDatadogAvailable = (entity: Entity) =>
   isDatadogDashboardAvailable(entity) || isDatadogGraphAvailable(entity);
 
+/**
+ * @deprecated since v0.2.0 you should use new composability API
+ */
 export const Router = ({ entity }: { entity: Entity }) =>
   !isDatadogDashboardAvailable(entity) ? (
     <MissingAnnotationEmptyState

@@ -59,6 +59,9 @@ const DatadogGraph = ({ entity }: { entity: Entity }) => {
   );
 };
 
+/**
+ * @deprecated since v0.2.0 you should use new composability API
+ */
 export const GraphWidget = ({ entity }: { entity: Entity }) => {
   return !isDatadogGraphAvailable(entity) ? (
     <MissingAnnotationEmptyState annotation={DATADOG_ANNOTATION_GRAPH_TOKEN} />
