@@ -18,7 +18,7 @@ import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import { Entity } from '@backstage/catalog-model';
 import { MissingAnnotationEmptyState } from '@backstage/core';
 import ErrorBoundary from './ErrorBoundary';
-import { isDatadogGraphAvailable } from '../Router';
+import { isDatadogGraphAvailable } from '../plugin';
 import {
   DATADOG_ANNOTATION_GRAPH_TOKEN,
   GraphSize,

@@ -18,17 +18,8 @@ import { MissingAnnotationEmptyState } from '@backstage/core';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { DatadogDashboardPage } from './components/DatadogDashboardPage';
-import {
-  DATADOG_ANNOTATION_DASHBOARD_URL,
-  DATADOG_ANNOTATION_GRAPH_TOKEN,
-} from './components/useDatadogAppData';
-
-export const isDatadogDashboardAvailable = (entity: Entity) =>
-  Boolean(entity?.metadata.annotations?.[DATADOG_ANNOTATION_DASHBOARD_URL]);
-export const isDatadogGraphAvailable = (entity: Entity) =>
-  Boolean(entity?.metadata.annotations?.[DATADOG_ANNOTATION_GRAPH_TOKEN]);
-export const isDatadogAvailable = (entity: Entity) =>
-  isDatadogDashboardAvailable(entity) || isDatadogGraphAvailable(entity);
+import { DATADOG_ANNOTATION_DASHBOARD_URL } from './components/useDatadogAppData';
+import { isDatadogDashboardAvailable } from './plugin';
 
 /**
  * @deprecated since v0.2.0 you should use new composability API
