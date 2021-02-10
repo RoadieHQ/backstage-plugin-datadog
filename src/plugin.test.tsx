@@ -15,7 +15,7 @@
  */
 
 import { setupServer } from 'msw/node';
-import { plugin } from './plugin';
+import { datadogPlugin } from './plugin';
 
 describe('datadog', () => {
   const worker = setupServer();
@@ -29,7 +29,7 @@ describe('datadog', () => {
 
   describe('export-plugin', () => {
     it('should export plugin', () => {
-      expect(plugin).toBeDefined();
+      expect(datadogPlugin).toBeDefined();
     });
   });
 });

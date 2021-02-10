@@ -18,7 +18,7 @@ import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import { Entity } from '@backstage/catalog-model';
 import { MissingAnnotationEmptyState } from '@backstage/core';
 import ErrorBoundary from './ErrorBoundary';
-import { isGraphAnnotation } from '../Router';
+import { isDatadogGraphAvailable } from '../plugin';
 import {
   DATADOG_ANNOTATION_GRAPH_TOKEN,
   GraphSize,
@@ -59,8 +59,11 @@ const DatadogGraph = ({ entity }: { entity: Entity }) => {
   );
 };
 
+/**
+ * @deprecated since v0.2.0 you should use new composability API
+ */
 export const GraphWidget = ({ entity }: { entity: Entity }) => {
-  return !isGraphAnnotation(entity) ? (
+  return !isDatadogGraphAvailable(entity) ? (
     <MissingAnnotationEmptyState annotation={DATADOG_ANNOTATION_GRAPH_TOKEN} />
   ) : (
     <ErrorBoundary>
