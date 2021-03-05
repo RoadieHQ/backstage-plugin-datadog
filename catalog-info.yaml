@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: name-of-github-repo
+  annotations:
+    github.com/project-slug: RoadieHQ/backstage-plugin-datadog
+spec:
+  type: other
+  lifecycle: unknown
+  owner: admins
