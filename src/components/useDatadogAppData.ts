@@ -16,9 +16,9 @@
 
 import { Entity } from '@backstage/catalog-model';
 
-export const DATADOG_ANNOTATION_DASHBOARD_URL = 'datadog/dashboard-url';
-export const DATADOG_ANNOTATION_GRAPH_TOKEN = 'datadog/graph-token';
-export const DATADOG_ANNOTATION_GRAPH_SIZE = 'datadog/graph-size';
+export const DATADOG_ANNOTATION_DASHBOARD_URL = 'datadoghq.com/dashboard-url';
+export const DATADOG_ANNOTATION_GRAPH_TOKEN = 'datadoghq.com/graph-token';
+export const DATADOG_ANNOTATION_GRAPH_SIZE = 'datadoghq.com/graph-size';
 
 export type GraphSize = 'small' | 'medium' | 'large' | 'x-large';
 
