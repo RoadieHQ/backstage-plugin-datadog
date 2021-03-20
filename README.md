@@ -1,41 +1,40 @@
-# Datadog Plugin for Backstage
+# [Datadog Plugin for Backstage](https://roadie.io/backstage/plugins/)
 
-![preview of Datadog Widget](https://raw.githubusercontent.com/RoadieHQ/backstage-plugin-datadog/main/docs/datadog-widget.png)
+With this plugin, you can embed Datadog graphs and dashboards into your instance of Backstage.
 
-<!-- [https://roadie.io/backstage/plugins/datadog](https://roadie.io/backstage/plugins/datadog) -->
+Datadog is a monitoring service for cloud-scale applications, providing monitoring of servers, databases, tools, and services through a SaaS-based data analytics platform. 
 
-## Features
+This readme will show you how to 
 
-- Embed public shared dashboard or screenboard
-- Embed shared graph
+* Setup and integrate the plugin into Backstage.
+* Obtain the dashboard URL and graph tokens from Datadog that you will need for your metadata. 
+* Adding the annotations and the values from Datadog to your component's metadata file.
 
-## How to add datadog project dependency to Backstage app
+## Setup and integrate the plugin into Backstage.
 
-If you have your own backstage application without this plugin, here it's how to add it:
+1. In the [packages/app](https://github.com/backstage/backstage/blob/master/packages/app/) directory of your backstage instance, add the plugin as a package.json dependency:
 
-1. In the `backstage/packages/app` project add the plugin as a `package.json` dependency:
-
-```bash
-yarn add @roadiehq/backstage-plugin-datadog
+```shell
+$ yarn add @roadiehq/backstage-plugin-datadog
 ```
-
-2. Add plugin to the list of plugins:
-
+2. export the plugin in your app's [plugins.ts](https://github.com/backstage/backstage/blob/master/packages/app/src/plugins.ts) to enable the plugin:
 ```ts
-// packages/app/src/plugins.ts
 export { plugin as Datadog } from '@roadiehq/backstage-plugin-datadog';
 ```
 
-4. Add plugin to the `entityPage.tsx` source file:
+3. import the plugin to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
 
 ```tsx
-// packages/app/src/components/catalog/EntityPage.tsx
 import {
   Router as DatadogRouter,
   GraphWidget as DatadogGraphWidget,
-  isGraphAnnotation as isDatadogWidgetAvailable,
+  isDatadogGraphAvailable as isDatadogWidgetAvailable,
 } from '@roadiehq/backstage-plugin-datadog';
+```
 
+4. Add a Datadog card to the overview tab to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
+
+```tsx
 const OverviewContent = ({ entity }: { entity: Entity }) => (
   <Grid container spacing={3} alignItems="stretch">
     ...
@@ -47,8 +46,11 @@ const OverviewContent = ({ entity }: { entity: Entity }) => (
     ...
   </Grid>
 );
+```
 
-...
+5. Add a Datadog tab to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
+
+```tsx
 const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
   <EntityPageLayout>
     <EntityPageLayout.Content
@@ -60,33 +62,93 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
 )
 ```
 
-## How to use datadog plugin in Backstage
+## Obtain the dashboard URL and graph tokens from Datadog that you will need for your metadata. 
 
-The datadog plugin is a part of the Backstage sample app. To start using it for your component, you have to:
+### For the Dashboard
 
-1. Add an annotation to the YAML config file of a component.
-   - To display a dashboard/screenboard you have to paste its whole embed url:
-     ```yml
-     datadog/graph-url: <graph-url>
-     ```
-   - To display an embeddable graph as a widget you have to  paste its embed token from the share url:
-     ```yml
-     argo-cd/graph-token: <graph-token>
-     ```
-   - You can set the embeddable graph to any of the sizes provided by the datadog (defaults to 'medium' if not set):
-     ```yml
-     argo-cd/graph-size: 'small' | 'medium' | 'large' | 'x-large'
-     ```
+* Login to your Datadog account.
 
-## Develop plugin locally
+### To get the dashboard URL.
 
-You can clone the plugin repo into the `plugins/` directory:
+* Navigate to the dashboards list by hovering over dashboards on the page's left-hand side and selecting the dashboard list.
 
-```sh
-git clone https://github.com/RoadieHQ/backstage-plugin-datadog.git datadog
+* Select a dashboard from this list.
+
+* Within the dashboard you have chosen, click the settings cog on the screen's right-hand side, circled in red.
+
+![dashboard](./docs/dd-dashboard.png?raw=true)
+
+
+* Copy the URL from the Sharing textbox.
+
+* This URL is the value you need for the `datadoghq.com/dashboard-url` annotation.
+
+![dashboard share](./docs/dd-dashboard-share.png?raw=true)
+
+
+### To get the graph token.
+
+* Click on the graph pencil, circled in red, from your dashboard.
+
+![dashboard](./docs/dd-dashboard-2.png?raw=true)
+
+* Click on the Share tab, choose a timeframe, graph size and legend. Click generate the embedded code. 
+
+* Copy the token value that is circled in red.
+
+* this token is the value you need for the `datadoghq.com/graph-token` annotation
+
+![dashboard](./docs/dd-graph-share.png?raw=true)
+
+## Adding the annotations and the values from Datadog to your component's metadata file.
+
+1. Datadog dashboard.
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-service
+  description: |
+    A sample service
+  annotations:
+    datadoghq.com/dashboard-url: <<DATADOGURL>>
 ```
 
-and run `yarn` in the root backstage directory - it will create a symbolic link so the dependency will be provided from the source code instead of node_modules package.
+2. Datadog graph.
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-service
+  description: |
+    A sample service
+  annotations:
+    datadoghq.com/graph-token: <<TOKEN>
+```
+
+## What it looks like
+
+### For the dashboard
+
+Navigate to the Datadog tab, and you will see your dashboard.
+![dashboard share](./docs/dd-backstage-tab.png?raw=true)
+
+### For the graph
+
+Navigate to the overview tab for your component. And you will see the graph.
+![dashboard share](./docs/dd-graph-overview.png?raw=true)
+
+## Contributing
+
+Everyone is welcome to contribute to this repository. Feel free to raise [issues](https://github.com/RoadieHQ/backstage-plugin-datadog/issues) or to submit [Pull Requests](https://github.com/RoadieHQ/backstage-plugin-datadog/pulls).
+
+
+Join us on Discord.
+
+[![Join our Discord server!](https://invidget.switchblade.xyz/chuePWkM?theme=light)](https://discord.gg/chuePWkM)
+
 
 ## Links
 

@@ -34,7 +34,7 @@ export const DatadogDashboardPage = ({ entity }: { entity: Entity }) => {
       >
         <iframe
           title="dashboard"
-          src={`${dashboardUrl}&tv_mode=true`}
+          src={`${dashboardUrl}`}
           style={{
             border: 'none',
             height: '100%',
