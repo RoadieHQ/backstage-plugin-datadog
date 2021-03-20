@@ -64,8 +64,6 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
 
 ## Obtain the dashboard URL and graph tokens from Datadog that you will need for your metadata. 
 
-### For the Dashboard
-
 * Login to your Datadog account.
 
 ### To get the dashboard URL.
