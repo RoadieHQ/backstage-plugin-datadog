@@ -92,7 +92,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
 
 * Click on the Share tab, choose a timeframe, graph size and legend. Click generate the embedded code. 
 
-* Copy the token value that is circled in red.
+* Copy the token value that is highlighted in the red square.
 
 * this token is the value you need for the `datadoghq.com/graph-token` annotation
 
