@@ -9,6 +9,11 @@ This readme will show you how to
 * Setup and integrate the plugin into Backstage.
 * Obtain the dashboard URL and graph tokens from Datadog that you will need for your metadata. 
 * Adding the annotations and the values from Datadog to your component's metadata file.
+<br/>
+<br/>
+
+
+![dashboard](./docs/datadog-widget.png?raw=true)
 
 ## Setup and integrate the plugin into Backstage.
 
@@ -62,11 +67,13 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
 )
 ```
 
-## Obtain the dashboard URL and graph tokens from Datadog that you will need for your metadata. 
+## Embed a datadog dashboard in Backstage
+
+### Obtain the dashboard URL from Datadog that you will need for your metadata. 
 
 * Login to your Datadog account.
 
-### To get the dashboard URL.
+### Get the dashboard URL.
 
 * Navigate to the dashboards list by hovering over dashboards on the page's left-hand side and selecting the dashboard list.
 
@@ -84,7 +91,24 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
 ![dashboard share](./docs/dd-dashboard-share.png?raw=true)
 
 
-### To get the graph token.
+### Adding the annotations and the values from Datadog to your component's metadata file.
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-service
+  description: |
+    A sample service
+  annotations:
+    datadoghq.com/dashboard-url: <<DATADOGURL>>
+```
+
+## Embed a datadog graph in Backstage
+
+* Login to your Datadog account.
+
+### Get the graph token.
 
 * Click on the graph pencil, circled in red, from your dashboard.
 
@@ -98,22 +122,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
 
 ![dashboard](./docs/dd-graph-share.png?raw=true)
 
-## Adding the annotations and the values from Datadog to your component's metadata file.
-
-1. Datadog dashboard.
-
-```yaml
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: sample-service
-  description: |
-    A sample service
-  annotations:
-    datadoghq.com/dashboard-url: <<DATADOGURL>>
-```
-
-2. Datadog graph.
+### Adding the annotations and the values from Datadog to your component's metadata file.
 
 ```yaml
 apiVersion: backstage.io/v1alpha1
@@ -125,7 +134,6 @@ metadata:
   annotations:
     datadoghq.com/graph-token: <<TOKEN>
 ```
-
 ## What it looks like
 
 ### For the dashboard
@@ -137,6 +145,17 @@ Navigate to the Datadog tab, and you will see your dashboard.
 
 Navigate to the overview tab for your component. And you will see the graph.
 ![dashboard share](./docs/dd-graph-overview.png?raw=true)
+
+## Security
+
+A word of note regarding the security of the datadog dashboards and graphs.
+
+The instructions provided for sharing dashboards and graphs generate a URL.
+
+This URL is public to anyone who bears it.
+
+If obtained by another actor, it is usable by them.
+
 
 ## Contributing
 
