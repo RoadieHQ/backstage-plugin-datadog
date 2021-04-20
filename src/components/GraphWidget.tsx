@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import { Entity } from '@backstage/catalog-model';
 import { MissingAnnotationEmptyState } from '@backstage/core';
-import ErrorBoundary from './ErrorBoundary';
+import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
+import React from 'react';
 import { isDatadogGraphAvailable } from '../plugin';
+import ErrorBoundary from './ErrorBoundary';
 import {
   DATADOG_ANNOTATION_GRAPH_TOKEN,
   GraphSize,
-  useDatadogAppData,
+  useDatadogAppData
 } from './useDatadogAppData';
 
 const mapGraphSizeToDimensions = (graphSize: GraphSize) => {
@@ -41,7 +41,7 @@ const mapGraphSizeToDimensions = (graphSize: GraphSize) => {
 };
 
 const DatadogGraph = ({ entity }: { entity: Entity }) => {
-  const { graphToken, graphSize } = useDatadogAppData({ entity });
+  const { graphToken, graphSize, site } = useDatadogAppData({ entity });
   const { width, height } = mapGraphSizeToDimensions(graphSize);
   return (
     <Card>
@@ -49,7 +49,7 @@ const DatadogGraph = ({ entity }: { entity: Entity }) => {
       <CardContent>
         <iframe
           title="graph"
-          src={`https://app.datadoghq.eu/graph/embed?token=${graphToken}&height=${height}&width=${width}&legend=true`}
+          src={`https://app.${site}/graph/embed?token=${graphToken}&height=${height}&width=${width}&legend=true`}
           width={width}
           height={height}
           frameBorder="0"
