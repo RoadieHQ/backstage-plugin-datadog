@@ -1,6 +1,6 @@
 # [Datadog Plugin for Backstage](https://roadie.io/backstage/plugins/)
 
-With this plugin, you can embed Datadog graphs and dashboards into your instance of Backstage.
+Embed Datadog graphs and dashboards into Backstage.
 
 Datadog is a monitoring service for cloud-scale applications, providing monitoring of servers, databases, tools, and services through a SaaS-based data analytics platform. 
 
