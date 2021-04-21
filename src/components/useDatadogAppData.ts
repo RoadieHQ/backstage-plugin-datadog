@@ -19,6 +19,7 @@ import { Entity } from '@backstage/catalog-model';
 export const DATADOG_ANNOTATION_DASHBOARD_URL = 'datadoghq.com/dashboard-url';
 export const DATADOG_ANNOTATION_GRAPH_TOKEN = 'datadoghq.com/graph-token';
 export const DATADOG_ANNOTATION_GRAPH_SIZE = 'datadoghq.com/graph-size';
+export const DATADOG_ANNOTATION_SITE = 'datadoghq.com/site';
 
 export type GraphSize = 'small' | 'medium' | 'large' | 'x-large';
 
@@ -31,8 +32,12 @@ export const useDatadogAppData = ({ entity }: { entity: Entity }) => {
     (entity?.metadata.annotations?.[
       DATADOG_ANNOTATION_GRAPH_SIZE
     ] as GraphSize) ?? 'medium';
+  const site: String =
+    (entity?.metadata.annotations?.[
+      DATADOG_ANNOTATION_SITE
+    ] as String) ?? 'datadoghq.eu';
   if (!dashboardUrl && !graphToken) {
     throw new Error("'datadog' annotation is missing");
   }
-  return { dashboardUrl, graphToken, graphSize };
+  return { dashboardUrl, graphToken, graphSize, site };
 };
