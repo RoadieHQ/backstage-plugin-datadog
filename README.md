@@ -31,9 +31,9 @@ export { plugin as Datadog } from '@roadiehq/backstage-plugin-datadog';
 
 ```tsx
 import {
-  Router as DatadogRouter,
-  GraphWidget as DatadogGraphWidget,
-  isDatadogGraphAvailable as isDatadogWidgetAvailable,
+  EntityDatadogContent,
+  EntityDatadogGraphCard,
+  isDatadogGraphAvailable
 } from '@roadiehq/backstage-plugin-datadog';
 ```
 
@@ -43,11 +43,13 @@ import {
 const OverviewContent = ({ entity }: { entity: Entity }) => (
   <Grid container spacing={3} alignItems="stretch">
     ...
-    {isDatadogWidgetAvailable(entity) && (
-      <Grid item>
-        <DatadogGraphWidget entity={entity} />
-      </Grid>
-    )}
+    <EntitySwitch>
+      <EntitySwitch.Case if={isDatadogGraphAvailable}>
+        <Grid item>
+         <EntityDatadogGraphCard/>
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
     ...
   </Grid>
 );
@@ -56,13 +58,13 @@ const OverviewContent = ({ entity }: { entity: Entity }) => (
 5. Add a Datadog tab to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
 
 ```tsx
-const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
+const serviceEntityPage = (
   <EntityPageLayout>
-    <EntityPageLayout.Content
-      path="/datadog/*"
-      title="datadog"
-      element={<DatadogRouter entity={entity} />}
-    />
+    ...
+  <EntityLayout.Route path="/datadog" title="Datadog">
+    <EntityDatadogContent />
+  </EntityLayout.Route>
+    ...
   </EntityPageLayout>
 )
 ```
