@@ -44,7 +44,7 @@ const OverviewContent = ({ entity }: { entity: Entity }) => (
   <Grid container spacing={3} alignItems="stretch">
     ...
     <EntitySwitch>
-      <EntitySwitch.Case if={e => Boolean(isDatadogGraphAvailable(e))}>
+      <EntitySwitch.Case if={isDatadogGraphAvailable}>
         <Grid item>
          <EntityDatadogGraphCard/>
         </Grid>
