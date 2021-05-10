@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { Entity } from '@backstage/catalog-model';
+import { useEntity } from '@backstage/plugin-catalog-react';
 import { MissingAnnotationEmptyState } from '@backstage/core';
 import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import React from 'react';
@@ -62,7 +63,8 @@ const DatadogGraph = ({ entity }: { entity: Entity }) => {
 /**
  * @deprecated since v0.2.0 you should use new composability API
  */
-export const GraphWidget = ({ entity }: { entity: Entity }) => {
+export const GraphWidget = () => {
+  const { entity } = useEntity();
   return !isDatadogGraphAvailable(entity) ? (
     <MissingAnnotationEmptyState annotation={DATADOG_ANNOTATION_GRAPH_TOKEN} />
   ) : (

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Entity } from '@backstage/catalog-model';
+import { useEntity } from '@backstage/plugin-catalog-react';
 import { MissingAnnotationEmptyState } from '@backstage/core';
 import React from 'react';
 import { Route, Routes } from 'react-router';
@@ -24,8 +24,9 @@ import { isDatadogDashboardAvailable } from './plugin';
 /**
  * @deprecated since v0.2.0 you should use new composability API
  */
-export const Router = ({ entity }: { entity: Entity }) =>
-  !isDatadogDashboardAvailable(entity) ? (
+export const Router = () => { 
+const { entity } = useEntity();
+  return !isDatadogDashboardAvailable(entity) ? (
     <MissingAnnotationEmptyState
       annotation={DATADOG_ANNOTATION_DASHBOARD_URL}
     />
@@ -34,3 +35,4 @@ export const Router = ({ entity }: { entity: Entity }) =>
       <Route path="/" element={<DatadogDashboardPage entity={entity} />} />
     </Routes>
   );
+  }
