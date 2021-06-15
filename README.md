@@ -40,7 +40,7 @@ import {
 4. Add a Datadog card to the overview tab to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
 
 ```tsx
-const OverviewContent = ({ entity }: { entity: Entity }) => (
+const overviewContent = (
   <Grid container spacing={3} alignItems="stretch">
     ...
     <EntitySwitch>
