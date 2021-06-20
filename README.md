@@ -22,12 +22,8 @@ This readme will show you how to
 ```shell
 $ yarn add @roadiehq/backstage-plugin-datadog
 ```
-2. export the plugin in your app's [plugins.ts](https://github.com/backstage/backstage/blob/master/packages/app/src/plugins.ts) to enable the plugin:
-```ts
-export { plugin as Datadog } from '@roadiehq/backstage-plugin-datadog';
-```
 
-3. import the plugin to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
+2. import the plugin to the [entityPage.tsx](https://github.com/backstage/backstage/blob/master/packages/app/src/components/catalog/EntityPage.tsx) source file:
 
 ```tsx
 import {
@@ -67,6 +63,22 @@ const serviceEntityPage = (
     ...
   </EntityPageLayout>
 )
+```
+## Specify datadog domain
+
+Datadog embedded graph is using `datadoghq.eu`as default top-level domain, when other is not specified. If you are using other domain, you need to specify it with corresponding annotations `datadoghq.com/site`.
+
+### Adding the annotations and the values from Datadog to your component's metadata file.
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-service
+  description: |
+    A sample service
+  annotations:
+    datadoghq.com/site: datadog-domain
 ```
 
 ## Embed a datadog dashboard in Backstage
@@ -124,6 +136,17 @@ metadata:
 
 ![dashboard](./docs/dd-graph-share.png?raw=true)
 
+### Customize graph size.
+
+* In order to customize size of the graph you may specify `datadoghq.com/graph-size` annotations and specify one of the following options: 
+
+* 'small'
+* 'medium'
+* 'large'
+* 'x-large';
+
+If not specified, your graph will be 'medium' size per default.
+
 ### Adding the annotations and the values from Datadog to your component's metadata file.
 
 ```yaml
@@ -135,6 +158,7 @@ metadata:
     A sample service
   annotations:
     datadoghq.com/graph-token: <<TOKEN>
+    
 ```
 ## What it looks like
 
