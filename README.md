@@ -78,7 +78,7 @@ metadata:
   description: |
     A sample service
   annotations:
-    datadoghq.com/site: datadog-domain
+    datadoghq.com/site: <<DATADOGDOMAIN>>
 ```
 
 ## Embed a datadog dashboard in Backstage
