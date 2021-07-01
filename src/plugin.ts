@@ -6,7 +6,7 @@ import {
   createRoutableExtension,
   createRouteRef,
   discoveryApiRef,
-} from '@backstage/core';
+} from '@backstage/core-plugin-api';
 import { DatadogApiClient, datadogApiRef } from './api';
 import {
   DATADOG_ANNOTATION_DASHBOARD_URL,

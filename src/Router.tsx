@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { useEntity } from '@backstage/plugin-catalog-react';
-import { MissingAnnotationEmptyState } from '@backstage/core';
+import { MissingAnnotationEmptyState } from '@backstage/core-components';
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import { DatadogDashboardPage } from './components/DatadogDashboardPage';

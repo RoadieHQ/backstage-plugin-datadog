@@ -16,7 +16,7 @@
 
 import React from 'react';
 import { Entity } from '@backstage/catalog-model';
-import { InfoCard } from '@backstage/core';
+import { InfoCard } from '@backstage/core-components';
 import { useDatadogAppData } from './useDatadogAppData';
 import { Resizable } from 're-resizable';
 import ZoomOutMapIcon from '@material-ui/icons/ZoomOutMap';
